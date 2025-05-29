@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "Video" ADD COLUMN     "duration" INTEGER,
+ADD COLUMN     "isLive" BOOLEAN,
+ADD COLUMN     "liveViewers" INTEGER,
+ADD COLUMN     "reports" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "shares" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "tags" TEXT[],
+ADD COLUMN     "views" INTEGER NOT NULL DEFAULT 0;

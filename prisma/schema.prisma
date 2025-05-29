@@ -1,0 +1,147 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client" //
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/**
+ * Enumération des rôles
+ */
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum VideoType {
+  STANDARD
+  LIVE
+  TREND
+}
+
+/**
+ * Modèle user
+ */
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  name      String
+  avatarUrl String?
+  isActive  Boolean
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  channels  Channel[]
+  likes     Like[]    @relation("UserLikes")
+  comments  Comment[] @relation("UserComments")
+  subscriptions Subscription[]
+}
+
+model Channel {
+  id        String   @id @default(uuid())
+  name      String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  videos    Video[]
+  subscribers Subscription[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Subscription {
+  id        String   @id @default(uuid())
+  userId    String
+  channelId String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  @@unique([userId, channelId])
+}
+
+/**
+ * Modèle video
+ */
+model Video {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  fileUrl     String
+  categoryId  String
+  category    Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  channelId   String
+  channel     Channel    @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  thumbnail   Thumbnail? @relation("VideoThumbnail")
+  likes       Like[]     @relation("VideoLikes")
+  comments    Comment[]  @relation("VideoComments")
+  videoType   VideoType  @default(STANDARD)
+  views         Int        @default(0)
+  liveViewers   Int?
+  duration      Int?
+  tags          String[]
+  isLive        Boolean?
+  shares        Int        @default(0)
+  reports       Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+/**
+ * Modèle category
+ */
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  videos    Video[]
+}
+
+/**
+ * Modèle thumbnail
+ */
+model Thumbnail {
+  id        String   @id @default(uuid())
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  videoId   String   @unique
+  video     Video    @relation("VideoThumbnail", fields: [videoId], references: [id], onDelete: Cascade)
+}
+
+/**
+ * Modèle like
+ */
+model Like {
+  id        String   @id @default(uuid())
+  userId    String
+  videoId   String
+  createdAt DateTime @default(now())
+  user      User     @relation("UserLikes", fields: [userId], references: [id], onDelete: Cascade)
+  video     Video    @relation("VideoLikes", fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, videoId])
+}
+
+/**
+ * Modèle comment
+ */
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  userId    String
+  videoId   String
+  user      User     @relation("UserComments", fields: [userId], references: [id], onDelete: Cascade)
+  video     Video    @relation("VideoComments", fields: [videoId], references: [id], onDelete: Cascade)
+}
