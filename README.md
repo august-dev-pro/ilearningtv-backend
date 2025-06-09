@@ -22,78 +22,249 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# iLearningTV Backend
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**iLearningTV** est une plateforme de streaming éducatif et communautaire, développée avec [NestJS](https://nestjs.com/) et [Prisma](https://www.prisma.io/) pour la gestion des vidéos, chaînes, utilisateurs, abonnements, commentaires, likes, catégories, etc.
 
-## Project setup
+---
+
+## Sommaire
+
+- [Fonctionnalités](#fonctionnalités)
+- [Architecture](#architecture)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Lancement du projet](#lancement-du-projet)
+- [Seed de la base de données](#seed-de-la-base-de-données)
+- [Tests](#tests)
+- [Déploiement](#déploiement)
+- [API & Documentation Swagger](#api--documentation-swagger)
+- [Structure du projet](#structure-du-projet)
+- [Contribuer](#contribuer)
+- [Licence](#licence)
+
+---
+
+## Fonctionnalités
+
+- Authentification JWT (utilisateurs, rôles)
+- Gestion des utilisateurs et profils
+- Création et gestion de chaînes personnalisées
+- Gestion des vidéos (upload, live, tendances, tags, vues, spectateurs live, etc.)
+- Système d’abonnement aux chaînes
+- Likes et commentaires sur les vidéos
+- Catégorisation des vidéos
+- Gestion des miniatures (thumbnails)
+- Seed réaliste et personnalisable pour la base de données
+- Sécurité CORS, gestion des erreurs, logs avancés
+- Documentation Swagger auto-générée
+
+---
+
+## Architecture
+
+- **NestJS** (TypeScript, architecture modulaire)
+- **Prisma** (ORM PostgreSQL)
+- **JWT** pour l’authentification
+- **Multer** pour l’upload de fichiers
+- **Swagger** pour la documentation API
+- **Seed** avancé pour la génération de données réalistes
+
+---
+
+## Prérequis
+
+- Node.js >= 18.x
+- npm >= 9.x
+- PostgreSQL (ou adapter la variable `DATABASE_URL`)
+
+---
+
+## Installation
 
 ```bash
-$ npm install
+git clone https://github.com/ton-org/ilearningtv-backend.git
+cd ilearningtv-backend
+npm install
 ```
 
-## Compile and run the project
+---
+
+## Configuration
+
+1. **Variables d’environnement**
+
+Crée un fichier `.env` à la racine :
+
+```env
+DATABASE_URL=postgresql://user:password@localhost:5432/ilearningtv
+JWT_SECRET=un_secret_tres_long
+PORT=3900
+HOST=0.0.0.0
+```
+
+2. **Migrations Prisma**
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npx prisma migrate deploy
+# ou pour dev :
+npx prisma migrate dev
 ```
 
-## Run tests
+---
+
+## Lancement du projet
 
 ```bash
-# unit tests
-$ npm run test
+# Développement
+npm run start:dev
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Production
+npm run build
+npm run start:prod
 ```
 
-## Deployment
+Le serveur démarre sur [http://localhost:3900](http://localhost:3900) par défaut.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Seed de la base de données
+
+Pour remplir la base avec des données réalistes (utilisateurs, chaînes, vidéos, abonnements, likes, commentaires, etc.) :
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+npm run seed
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+- Les chaînes ont des noms professionnels et variés.
+- Les vidéos sont associées à des chaînes, avec tags, vues, spectateurs live, etc.
+- Les abonnements, likes et commentaires sont générés aléatoirement.
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+## Tests
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+npm run test
+npm run test:e2e
+npm run test:cov
+```
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Déploiement
 
-## Stay in touch
+Le backend est actuellement **déployé sur Render** :
+➡️ [https://ilearningtv-backend.onrender.com](https://ilearningtv-backend.onrender.com)
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Les scripts de seed sont exécutés automatiquement lors du déploiement pour enrichir la base PostgreSQL.
+- Les fichiers uploadés sont servis via `/uploads`.
+- Swagger est désactivé en production par défaut.
 
-## License
+### Docker
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Le projet est **prêt pour un déploiement Docker** (voir `Dockerfile` et `docker-compose.yml`), mais cette option n’est pas encore activée sur l’environnement Render.
+Vous pouvez lancer le projet en local avec Docker pour vos tests ou pour un futur déploiement cloud.
+
+```bash
+docker-compose up --build
+```
+
+---
+
+## API & Documentation Swagger
+
+La documentation interactive est disponible (hors production) à :
+
+```
+http://localhost:4000/iLearningtv-api/docs
+```
+
+---
+
+## Structure du projet
+
+```
+ilearningtv-backend/
+├── src/
+│   ├── app.module.ts
+│   ├── main.ts
+│   ├── seeds/
+│   ├── auth/
+│   ├── user/
+│   ├── channel/
+│   ├── video/
+│   ├── category/
+│   ├── comment/
+│   ├── like/
+│   ├── subscription/
+│   ├── thumbnail/
+│   └── common/
+├── prisma/
+│   ├── schema.prisma
+│   └── migrations/
+├── uploads/
+├── .env.example
+├── .gitignore
+├── Dockerfile
+├── docker-compose.yml
+├── package.json
+├── README.md
+├── tsconfig.json
+└── ... (autres fichiers de config)
+```
+
+- **src/** : code source principal, organisé par modules métier.
+- **prisma/** : schéma et migrations de la base de données.
+- **uploads/** : fichiers uploadés (vidéos, miniatures…).
+- **.env.example** : exemple de configuration d’environnement.
+- **Dockerfile / docker-compose.yml** : pour le déploiement et le dev local.
+- **README.md** : ce fichier de documentation.
+- **tsconfig.json** : configuration TypeScript.
+- **package.json** : dépendances et scripts npm.
+
+---
+
+## Contribuer
+
+1. Fork le repo
+
+```bash
+git clone https://github.com/august-dev-pro/ilearningtv-backend.git
+```
+
+2. Crée une branche
+
+```bash
+git checkout -b feature/ma-feature
+```
+
+3. Commit tes changements
+
+```bash
+git commit -am 'feat: ma feature'
+```
+
+4. Push la branche
+
+```bash
+git push origin feature/ma-feature
+```
+
+5. Ouvre une Pull Request sur GitHub
+
+---
+
+## Licence
+
+Projet sous licence [MIT](LICENSE).
+
+---
+
+**Contact**
+Pour toute question : [augustinselete01@gmail.com](https://august-dev-porfolio.vercel.app)
+
+---
+
+> _Projet réalisé avec ❤️ et NestJS pour la communauté iLearningTV._

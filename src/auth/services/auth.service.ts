@@ -141,7 +141,10 @@ export class AuthService {
     const found = await this.userService.getById(user.userId);
     if (!found) throw new NotFoundException('User not found');
     const email = found.getEmail();
-    return { email: email };
+    const name = found.getName();
+    const role = found.getRole();
+    const avatarUrl = found.getAvatarUrl();
+    return { email, name, role, avatarUrl };
   }
 
   // 🔧 Générer un token manuellement
