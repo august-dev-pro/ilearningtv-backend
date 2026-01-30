@@ -58,7 +58,7 @@ export async function seedVideos(
   users: User[],
   channels: Channel[],
 ) {
-  console.log('--- Success VIDEOS seeds ---');
+  console.log('\n--- Starting VIDEOS seeds... ---');
 
   const videos = [
     {
