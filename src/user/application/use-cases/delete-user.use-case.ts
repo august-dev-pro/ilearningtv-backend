@@ -8,7 +8,7 @@ export class DeleteUserUseCase {
   private readonly logger = new Logger(DeleteUserUseCase.name);
 
   constructor(
-    @Inject("IUserRepository")
+    @Inject('IUserRepository')
     private readonly userRepository: IUserRepository,
   ) {}
 

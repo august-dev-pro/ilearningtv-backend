@@ -1,6 +1,6 @@
 {
   "name": "ilearningtv-backend",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "",
   "author": "",
   "private": true,
@@ -18,7 +18,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "seed": "ts-node src/seeds/seed.ts"
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy",
+    "seed": "ts-node prisma/seeds/seed.ts",
+    "seed:core": "ts-node prisma/seeds/seed-core.ts",
+    "seed:dev": "ts-node prisma/seeds/seed-dev.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -90,5 +94,6 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "prisma": {}
 }

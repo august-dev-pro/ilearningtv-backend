@@ -1,13 +1,24 @@
-
 /**
  * CommentController gère les endpoints de l'API pour l'entité Comment.
  * Il utilise les cas d'utilisation (Use Cases) pour orchestrer les différentes actions métiers liées à l'entité.
  */
 
-import { Controller, Get, Post, Body, Param, Put, Delete, Injectable } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  Injectable,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CommentService } from 'src/comment/infrastructure/services/comment.service';
-import { CreateCommentDto, UpdateCommentDto } from 'src/comment/application/dtos/comment.dto';
+import {
+  CreateCommentDto,
+  UpdateCommentDto,
+} from 'src/comment/application/dtos/comment.dto';
 
 @Injectable()
 @ApiTags('Comment')
@@ -18,19 +29,14 @@ export class CommentController {
   // 📌 Créer un comment
   @Post()
   @ApiOperation({ summary: 'Create a new comment' })
-  async create(
-    @Body() dto: CreateCommentDto,
-  ) {
+  async create(@Body() dto: CreateCommentDto) {
     return await this.service.create(dto);
   }
 
   // 📌 Mettre à jour un comment
   @Put(':id')
   @ApiOperation({ summary: 'Update a comment' })
-  async update(
-    @Param('id') id: string,
-    @Body() dto: UpdateCommentDto,
-  ) {
+  async update(@Param('id') id: string, @Body() dto: UpdateCommentDto) {
     return await this.service.update(id, dto);
   }
 

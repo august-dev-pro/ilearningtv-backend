@@ -9,7 +9,7 @@ export class GetAllUserUseCase {
   private readonly logger = new Logger(GetAllUserUseCase.name);
 
   constructor(
-    @Inject("IUserRepository")
+    @Inject('IUserRepository')
     private readonly userRepository: IUserRepository,
   ) {}
 

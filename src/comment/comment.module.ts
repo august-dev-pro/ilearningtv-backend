@@ -20,18 +20,14 @@ import { DeleteCommentUseCase } from 'src/comment/application/use-cases/delete-c
 import { CommentMapper } from 'src/comment/domain/mappers/comment.mapper';
 
 @Module({
-  imports: [
-    
-  ],
-  controllers: [
-    CommentController
-  ],
+  imports: [],
+  controllers: [CommentController],
   providers: [
     PrismaService,
     {
-        provide: 'ICommentRepository',
-        useClass: CommentRepository,
-        },
+      provide: 'ICommentRepository',
+      useClass: CommentRepository,
+    },
     CommentService,
     CommentRepository,
     CreateCommentUseCase,
@@ -39,10 +35,8 @@ import { CommentMapper } from 'src/comment/domain/mappers/comment.mapper';
     GetByIdCommentUseCase,
     GetAllCommentUseCase,
     DeleteCommentUseCase,
-    CommentMapper
+    CommentMapper,
   ],
-  exports: [
-    CommentService
-  ]
+  exports: [CommentService],
 })
 export class CommentModule {}

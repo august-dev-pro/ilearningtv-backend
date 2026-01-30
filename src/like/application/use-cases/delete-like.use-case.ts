@@ -8,7 +8,7 @@ export class DeleteLikeUseCase {
   private readonly logger = new Logger(DeleteLikeUseCase.name);
 
   constructor(
-    @Inject("ILikeRepository")
+    @Inject('ILikeRepository')
     private readonly likeRepository: ILikeRepository,
   ) {}
 

@@ -12,7 +12,7 @@ async function bootstrap() {
 
   // Active CORS ici
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://ilearning-tv.vercel.app'], // URLs frontend autorisées
+    origin: ['http://localhost:3000', 'https://ilearning-tv.vercel.app'],
     credentials: true,
   });
 

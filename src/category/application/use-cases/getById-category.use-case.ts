@@ -9,7 +9,7 @@ export class GetByIdCategoryUseCase {
   private readonly logger = new Logger(GetByIdCategoryUseCase.name);
 
   constructor(
-    @Inject("ICategoryRepository")
+    @Inject('ICategoryRepository')
     private readonly categoryRepository: ICategoryRepository,
   ) {}
 

@@ -1,4 +1,7 @@
-import { CreateCommentDto, UpdateCommentDto } from 'src/comment/application/dtos/comment.dto';
+import {
+  CreateCommentDto,
+  UpdateCommentDto,
+} from 'src/comment/application/dtos/comment.dto';
 import { CommentEntity } from 'src/comment/domain/entities/comment.entity';
 
 export interface ICommentRepository {

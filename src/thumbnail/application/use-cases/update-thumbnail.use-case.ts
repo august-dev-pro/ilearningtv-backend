@@ -10,11 +10,14 @@ export class UpdateThumbnailUseCase {
   private readonly logger = new Logger(UpdateThumbnailUseCase.name);
 
   constructor(
-    @Inject("IThumbnailRepository")
+    @Inject('IThumbnailRepository')
     private readonly thumbnailRepository: IThumbnailRepository,
   ) {}
 
-  async execute(id: string, data: UpdateThumbnailDto): Promise<ThumbnailEntity | null> {
+  async execute(
+    id: string,
+    data: UpdateThumbnailDto,
+  ): Promise<ThumbnailEntity | null> {
     this.logger.log(`Mise à jour de Thumbnail id: ${id}`);
     try {
       const result = await this.thumbnailRepository.update(id, data);

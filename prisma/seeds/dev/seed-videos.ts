@@ -1,8 +1,7 @@
-import { PrismaClient, Role } from '@prisma/client';
+import { Category, Channel, PrismaClient, User } from '@prisma/client';
 import { VideoTypeEnum } from 'src/video/domain/enums/video-type.enum';
 import { v4 as uuidv4 } from 'uuid';
 
-const prisma = new PrismaClient();
 const randomComments = [
   'Super vidéo, merci !',
   "Très clair, j'ai tout compris.",
@@ -54,214 +53,12 @@ const randomComments = [
   'Franchement, chapeau bas.',
 ];
 
-async function main() {
-  console.log('Démarrage du seeding...');
-
-  // Création des catégories
-  const categoriesData = [
-    { name: 'NestJS', description: 'Tutoriels NestJS' },
-    { name: 'Prisma', description: 'Gestion de base de données avec Prisma' },
-    { name: 'Auth', description: 'Authentification dans les API' },
-    { name: 'Testing', description: 'Tests unitaires et e2e' },
-    { name: 'Sciences', description: 'Sciences' },
-    { name: 'Histoire', description: 'Histoire' },
-    { name: 'Informatique', description: 'Informatique' },
-    { name: 'Astronomie', description: 'Astronomie' },
-    { name: 'Technologie', description: 'Technologie' },
-    { name: 'Biologie', description: 'Biologie' },
-    { name: 'Santé', description: 'Santé' },
-    { name: 'Environnement', description: 'Environnement' },
-  ];
-
-  const categories = await Promise.all(
-    categoriesData.map((cat) =>
-      prisma.category.create({
-        data: {
-          //   id: uuidv4(),
-          name: cat.name,
-          //   description: cat.description,
-        },
-      }),
-    ),
-  );
-
-  const categoryMap = Object.fromEntries(
-    categories.map((cat) => [cat.name, cat.id]),
-  );
-
-  const userData = [
-    {
-      email: 'jean@dev.com',
-      name: 'Jean Dev',
-      password: 'hashed_password_jean',
-    },
-    {
-      email: 'nadia@dev.com',
-      name: 'Nadia El Fassi',
-      password: 'hashed_password_nadia',
-    },
-    {
-      email: 'claire@dev.com',
-      name: 'Claire Martin',
-      password: 'hashed_password_claire',
-    },
-    {
-      email: 'lucie@dev.com',
-      name: 'Lucie Moreau',
-      password: 'hashed_password_lucie',
-    },
-    {
-      email: 'emilie@dev.com',
-      name: 'Émilie Fabre',
-      password: 'hashed_password_emilie',
-    },
-    {
-      email: 'marc@dev.com',
-      name: 'Marc Lefèvre',
-      password: 'hashed_password_marc',
-    },
-    {
-      email: 'clairef@dev.com',
-      name: 'Claire Fontaine',
-      password: 'hashed_password_clairef',
-    },
-    {
-      email: 'paul@dev.com',
-      name: 'Paul Bernard',
-      password: 'hashed_password_paul',
-    },
-    {
-      email: 'sophie@dev.com',
-      name: 'Sophie Dubois',
-      password: 'hashed_password_sophie',
-    },
-    {
-      email: 'julien@dev.com',
-      name: 'Julien Petit',
-      password: 'hashed_password_julien',
-    },
-    {
-      email: 'lea@dev.com',
-      name: 'Léa Robert',
-      password: 'hashed_password_lea',
-    },
-    {
-      email: 'antoine@dev.com',
-      name: 'Antoine Girard',
-      password: 'hashed_password_antoine',
-    },
-    {
-      email: 'emma@dev.com',
-      name: 'Emma Laurent',
-      password: 'hashed_password_emma',
-    },
-    {
-      email: 'lucas@dev.com',
-      name: 'Lucas Garcia',
-      password: 'hashed_password_lucas',
-    },
-    {
-      email: 'manon@dev.com',
-      name: 'Manon Morel',
-      password: 'hashed_password_manon',
-    },
-    {
-      email: 'thomas@dev.com',
-      name: 'Thomas Fournier',
-      password: 'hashed_password_thomas',
-    },
-    {
-      email: 'camille@dev.com',
-      name: 'Camille Lambert',
-      password: 'hashed_password_camille',
-    },
-    {
-      email: 'maxime@dev.com',
-      name: 'Maxime Rousseau',
-      password: 'hashed_password_maxime',
-    },
-    {
-      email: 'julie@dev.com',
-      name: 'Julie Faure',
-      password: 'hashed_password_julie',
-    },
-    {
-      email: 'quentin@dev.com',
-      name: 'Quentin Blanchard',
-      password: 'hashed_password_quentin',
-    },
-  ];
-
-  const users = await Promise.all(
-    userData.map((u) =>
-      prisma.user.create({
-        data: {
-          email: u.email,
-          password: u.password,
-          name: u.name,
-          avatarUrl: null,
-          isActive: true,
-          role: Role.USER,
-        },
-      }),
-    ),
-  );
-
-  // 1. Création des chaînes
-  const channelNames = [
-    'TechVision',
-    'ScienceXplorer',
-    'Histoire Vivante',
-    'CodeMaster',
-    'AstroDécouverte',
-    'BioGénie',
-    'SantéPlus',
-    'EcoLogique',
-    'CuisineFacile',
-    'VoyageurCurieux',
-    'ArtStudio',
-    'FitnessZone',
-    'CulturePop',
-    'GamingWorld',
-    'FinanceSmart',
-    'AutoPassion',
-    'ModeTrendy',
-    'ParentZen',
-    'DIYMania',
-    'PhotoPro',
-  ];
-
-  const channels = await Promise.all(
-    users.map((user, idx) =>
-      prisma.channel.create({
-        data: {
-          id: uuidv4(),
-          name: channelNames[idx % channelNames.length],
-          userId: user.id,
-        },
-      }),
-    ),
-  );
-
-  const userChannelMap = Object.fromEntries(
-    channels.map((ch) => [ch.userId, ch.id]),
-  );
-
-  // 2. Création des abonnements
-  for (const user of users) {
-    const otherChannels = channels.filter((ch) => ch.userId !== user.id);
-    const shuffled = otherChannels.sort(() => 0.5 - Math.random());
-    const subCount = Math.floor(Math.random() * 3) + 2;
-    for (let i = 0; i < subCount && i < shuffled.length; i++) {
-      await prisma.subscription.create({
-        data: {
-          id: uuidv4(),
-          userId: user.id,
-          channelId: shuffled[i].id,
-        },
-      });
-    }
-  }
+export async function seedVideos(
+  prisma: PrismaClient,
+  users: User[],
+  channels: Channel[],
+) {
+  console.log('--- Success VIDEOS seeds ---');
 
   const videos = [
     {
@@ -586,7 +383,6 @@ async function main() {
     },
   ];
 
-  // 3. Création des vidéos
   const possibleTags = [
     'tuto',
     'science',
@@ -604,6 +400,17 @@ async function main() {
     'nutrition',
     'environnement',
   ];
+
+  const userChannelMap = Object.fromEntries(
+    channels.map((ch) => [ch.userId, ch.id]),
+  );
+
+  const categories: Category[] = await prisma.category.findMany();
+
+  const categoryMap = Object.fromEntries(
+    categories.map((cat) => [cat.name, cat.id]),
+  );
+
   for (const v of videos) {
     const randomUser = users[Math.floor(Math.random() * users.length)];
     const channelId = userChannelMap[randomUser.id];
@@ -624,23 +431,25 @@ async function main() {
         id: uuidv4(),
         title: v.title,
         description: v.description,
-        channelId: channelId,
+        channelId,
         categoryId: categoryMap[v.category],
         fileUrl: v.videoUrl,
         videoType: v.videoType as VideoTypeEnum,
         views: v.views ?? Math.floor(Math.random() * 5000),
-        liveViewers: liveViewers,
+        liveViewers,
         duration: Math.floor(Math.random() * 3600) + 60,
-        tags: tags,
-        isLive: isLive,
+        tags,
+        isLive,
         shares: Math.floor(Math.random() * 100),
         reports: Math.floor(Math.random() * 5),
         createdAt: v.createdAt ? new Date(v.createdAt) : new Date(),
       },
     });
 
-    await prisma.thumbnail.create({
-      data: {
+    await prisma.thumbnail.upsert({
+      where: { videoId: video.id },
+      update: {},
+      create: {
         id: uuidv4(),
         videoId: video.id,
         imageUrl: v.thumbnailFile,
@@ -676,15 +485,5 @@ async function main() {
       });
     }
   }
-
-  console.log('Seeding terminé avec succès !');
+  console.log('--- Success VIDEOS seeds ---');
 }
-
-main()
-  .catch((e) => {
-    console.error(' Erreur pendant le seeding :', e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });

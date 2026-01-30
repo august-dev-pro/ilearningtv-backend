@@ -10,7 +10,7 @@ export class CreateCommentUseCase {
   private readonly logger = new Logger(CreateCommentUseCase.name);
 
   constructor(
-    @Inject("ICommentRepository")
+    @Inject('ICommentRepository')
     private readonly commentRepository: ICommentRepository,
   ) {}
 

@@ -10,7 +10,7 @@ export class UpdateUserUseCase {
   private readonly logger = new Logger(UpdateUserUseCase.name);
 
   constructor(
-    @Inject("IUserRepository")
+    @Inject('IUserRepository')
     private readonly userRepository: IUserRepository,
   ) {}
 

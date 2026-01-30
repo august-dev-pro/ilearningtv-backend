@@ -9,7 +9,7 @@ export class GetAllVideoUseCase {
   private readonly logger = new Logger(GetAllVideoUseCase.name);
 
   constructor(
-    @Inject("IVideoRepository")
+    @Inject('IVideoRepository')
     private readonly videoRepository: IVideoRepository,
   ) {}
 

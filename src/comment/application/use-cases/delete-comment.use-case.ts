@@ -8,7 +8,7 @@ export class DeleteCommentUseCase {
   private readonly logger = new Logger(DeleteCommentUseCase.name);
 
   constructor(
-    @Inject("ICommentRepository")
+    @Inject('ICommentRepository')
     private readonly commentRepository: ICommentRepository,
   ) {}
 

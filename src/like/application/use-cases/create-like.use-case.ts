@@ -10,7 +10,7 @@ export class CreateLikeUseCase {
   private readonly logger = new Logger(CreateLikeUseCase.name);
 
   constructor(
-    @Inject("ILikeRepository")
+    @Inject('ILikeRepository')
     private readonly likeRepository: ILikeRepository,
   ) {}
 

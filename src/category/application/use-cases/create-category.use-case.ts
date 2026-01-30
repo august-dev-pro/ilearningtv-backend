@@ -10,7 +10,7 @@ export class CreateCategoryUseCase {
   private readonly logger = new Logger(CreateCategoryUseCase.name);
 
   constructor(
-    @Inject("ICategoryRepository")
+    @Inject('ICategoryRepository')
     private readonly categoryRepository: ICategoryRepository,
   ) {}
 

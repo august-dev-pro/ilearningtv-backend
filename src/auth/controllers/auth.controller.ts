@@ -1,7 +1,7 @@
 import { Controller, Post, Body, UseGuards, Get, Req } from '@nestjs/common';
 import { Request } from 'express';
-import { AuthService } from "src/auth/services/auth.service";
-import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { AuthService } from 'src/auth/services/auth.service';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateUserDto } from 'src/user/application/dtos/user.dto';
 import { LoginCredentialDto } from 'src/user/application/dtos/loginCredential.dto';
 import { RefreshTokenDto } from 'src/user/application/dtos/refreshToken.dto';
@@ -71,4 +71,3 @@ export class AuthController {
     if (req.user) return this.authService.getProfile(req.user);
   }
 }
-

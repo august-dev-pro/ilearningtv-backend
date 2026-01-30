@@ -4,7 +4,10 @@ import { UpdateCommentUseCase } from 'src/comment/application/use-cases/update-c
 import { GetByIdCommentUseCase } from 'src/comment/application/use-cases/getById-comment.use-case';
 import { GetAllCommentUseCase } from 'src/comment/application/use-cases/getAll-comment.use-case';
 import { DeleteCommentUseCase } from 'src/comment/application/use-cases/delete-comment.use-case';
-import { CreateCommentDto, UpdateCommentDto } from 'src/comment/application/dtos/comment.dto';
+import {
+  CreateCommentDto,
+  UpdateCommentDto,
+} from 'src/comment/application/dtos/comment.dto';
 import { CommentEntity } from 'src/comment/domain/entities/comment.entity';
 
 @Injectable()
@@ -20,7 +23,10 @@ export class CommentService {
   async create(dto: CreateCommentDto): Promise<CommentEntity> {
     return await this.createUseCase.execute(dto);
   }
-  async update(id: string, dto: UpdateCommentDto): Promise<CommentEntity | null> {
+  async update(
+    id: string,
+    dto: UpdateCommentDto,
+  ): Promise<CommentEntity | null> {
     return await this.updateUseCase.execute(id, dto);
   }
   async getById(id: string): Promise<CommentEntity | null> {

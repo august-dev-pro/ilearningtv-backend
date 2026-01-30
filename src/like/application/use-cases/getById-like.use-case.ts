@@ -9,7 +9,7 @@ export class GetByIdLikeUseCase {
   private readonly logger = new Logger(GetByIdLikeUseCase.name);
 
   constructor(
-    @Inject("ILikeRepository")
+    @Inject('ILikeRepository')
     private readonly likeRepository: ILikeRepository,
   ) {}
 

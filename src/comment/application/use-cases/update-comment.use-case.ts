@@ -10,11 +10,14 @@ export class UpdateCommentUseCase {
   private readonly logger = new Logger(UpdateCommentUseCase.name);
 
   constructor(
-    @Inject("ICommentRepository")
+    @Inject('ICommentRepository')
     private readonly commentRepository: ICommentRepository,
   ) {}
 
-  async execute(id: string, data: UpdateCommentDto): Promise<CommentEntity | null> {
+  async execute(
+    id: string,
+    data: UpdateCommentDto,
+  ): Promise<CommentEntity | null> {
     this.logger.log(`Mise à jour de Comment id: ${id}`);
     try {
       const result = await this.commentRepository.update(id, data);

@@ -8,7 +8,7 @@ export class DeleteCategoryUseCase {
   private readonly logger = new Logger(DeleteCategoryUseCase.name);
 
   constructor(
-    @Inject("ICategoryRepository")
+    @Inject('ICategoryRepository')
     private readonly categoryRepository: ICategoryRepository,
   ) {}
 

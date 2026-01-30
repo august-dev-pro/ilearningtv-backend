@@ -10,11 +10,14 @@ export class UpdateCategoryUseCase {
   private readonly logger = new Logger(UpdateCategoryUseCase.name);
 
   constructor(
-    @Inject("ICategoryRepository")
+    @Inject('ICategoryRepository')
     private readonly categoryRepository: ICategoryRepository,
   ) {}
 
-  async execute(id: string, data: UpdateCategoryDto): Promise<CategoryEntity | null> {
+  async execute(
+    id: string,
+    data: UpdateCategoryDto,
+  ): Promise<CategoryEntity | null> {
     this.logger.log(`Mise à jour de Category id: ${id}`);
     try {
       const result = await this.categoryRepository.update(id, data);

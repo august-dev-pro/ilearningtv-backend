@@ -8,7 +8,7 @@ export class DeleteThumbnailUseCase {
   private readonly logger = new Logger(DeleteThumbnailUseCase.name);
 
   constructor(
-    @Inject("IThumbnailRepository")
+    @Inject('IThumbnailRepository')
     private readonly thumbnailRepository: IThumbnailRepository,
   ) {}
 

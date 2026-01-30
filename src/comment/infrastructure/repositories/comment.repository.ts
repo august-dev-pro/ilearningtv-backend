@@ -1,6 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateCommentDto, UpdateCommentDto } from 'src/comment/application/dtos/comment.dto';
+import {
+  CreateCommentDto,
+  UpdateCommentDto,
+} from 'src/comment/application/dtos/comment.dto';
 import { ICommentRepository } from 'src/comment/application/interfaces/comment.repository.interface';
 import { CommentEntity } from 'src/comment/domain/entities/comment.entity';
 import { CommentMapper } from 'src/comment/domain/mappers/comment.mapper';
@@ -46,7 +49,7 @@ export class CommentRepository implements ICommentRepository {
   // find all
   async findAll(): Promise<CommentEntity[]> {
     const records = await this.prisma.comment.findMany();
-    return records.map(record => this.mapper.toDomain(record));
+    return records.map((record) => this.mapper.toDomain(record));
   }
 
   // delete

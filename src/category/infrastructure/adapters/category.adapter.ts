@@ -1,4 +1,3 @@
-
 // L'adaptateur permet de transformer ou d'adapter les données d'un format source vers un format cible.
 // Cela est particulièrement utile lorsque nous devons interagir avec des API externes ou des services ayant des structures de données différentes.
 

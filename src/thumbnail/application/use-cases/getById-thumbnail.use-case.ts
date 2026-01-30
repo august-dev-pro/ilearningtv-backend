@@ -9,7 +9,7 @@ export class GetByIdThumbnailUseCase {
   private readonly logger = new Logger(GetByIdThumbnailUseCase.name);
 
   constructor(
-    @Inject("IThumbnailRepository")
+    @Inject('IThumbnailRepository')
     private readonly thumbnailRepository: IThumbnailRepository,
   ) {}
 
