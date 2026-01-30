@@ -8,5 +8,5 @@ export async function seedDev(prisma: PrismaClient) {
   const users = await seedUsers(prisma);
   const channels = await seedChannels(prisma, users);
   await seedVideos(prisma, users, channels);
-  console.log('✅ Success Seeding DEV data');
+  console.log('\n✅ Success Seeding DEV data');
 }

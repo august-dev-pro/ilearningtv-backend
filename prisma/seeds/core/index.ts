@@ -6,5 +6,5 @@ export async function seedCore(prisma: PrismaClient) {
   console.log('🌱 Starting CORE seeds ...');
   await seedCategories(prisma);
   await seedAdmin(prisma);
-  console.log('\n✅ Success CORE seeds ');
+  console.log('\n✅ Success CORE seeds\n');
 }
